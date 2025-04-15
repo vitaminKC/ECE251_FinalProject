@@ -30,22 +30,16 @@ module alu(A, B, S, Z);
 
     always @(*) begin
         case(S)
-        4'b0000: // addition
+        3'b010: // addition
             Z = A + B;
-        4'b0001: //subtraction
+        3'b110: //subtraction
             Z = A - B;
-        4'b0010: //multiplication
-            Z = A * B;
-        4'b0011: //division
-            Z = A / B;
-        4'b0100: //and
+        3'b000: //and
             Z = A & B; 
-        4'b0101: //or
+        3'b001: //or
             Z = A | B;
-          4'b0110: //not
-            Z = ~A;
-        4'b0111: //sll
-            Z = A << 1;
+        3'b111: //slt
+            Z = (A < B);
         endcase
     end
 
