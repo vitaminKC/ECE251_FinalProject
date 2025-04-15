@@ -5,7 +5,7 @@
 // 
 //     Create Date: 2025-04-15
 //     Module Name: tb_dff
-//     Description: Test bench for simple behavorial adder
+//     Description: Test bench for simple behavorial D-flip flop
 //
 // Revision: 1.0
 //

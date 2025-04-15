@@ -5,7 +5,7 @@
 // 
 //     Create Date: 2025-04-15
 //     Module Name: dff
-//     Description: simple behavorial adder
+//     Description: simple behavorial D-flip flop
 //
 // Revision: 1.0
 //
