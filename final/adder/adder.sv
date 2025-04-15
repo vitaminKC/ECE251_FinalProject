@@ -13,7 +13,7 @@
 `ifndef ADDER
 `define ADDER
 
-module adder (A, B, C_in, Y, C_out);
+module adder (A, B, Y);
 
    //
    // ---------------- PORT DEFINITIONS ----------------
@@ -28,7 +28,7 @@ module adder (A, B, C_in, Y, C_out);
    //
    // ---------------- MODULE DESIGN IMPLEMENTATION ----------------
    //
-   assign {C_out, Y} = A + B;
+   assign {Y} = A + B;
 
 endmodule
 
