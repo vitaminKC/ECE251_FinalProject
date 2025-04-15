@@ -51,9 +51,16 @@ module datapath_tb;
   always #5 clk = ~clk;
 
   initial begin
-    $dumpfile("datapath_tb.vcd");
-    $dumpvars(0, datapath_tb);
+    $dumpfile("tb_datapath.vcd");
+    $dumpvars(0, dut);
+  end
 
+  initial begin: display_variables
+      $monitor ("ns=%ot, clk=%b, reset=%b, memtoreg=%b, pcsrc=%b, alusrc=%b, regdst=%b, regwrite=%b, jump=%b, alucontrol=%b, zero=%b, pc=%b, instr=%b, aluout=%b, writedata=%b, readdata=%b", $time, clk, reset, memtoreg, pcsrc, alusrc, regdst, regwrite, jump, alucontrol, zero, pc, instr, aluout, writedata, readdata);
+  end
+
+
+  initial begin
     clk = 0;
     reset = 1;
     memtoreg = 0;
