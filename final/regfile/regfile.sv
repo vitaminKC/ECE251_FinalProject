@@ -12,7 +12,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 `ifndef REGFILE
 `define REGFILE
-`include "register.sv"
+`include "./register.sv"
 
 module regfile #(
   parameter n = 32,  // bit width of each register
