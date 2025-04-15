@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////////////////
 // The Cooper Union
-// ECE 251 Spring 2024
+// ECE 251 Spring 2025
 // Engineer: Amanda Su and Casey Ye
 // 
-//     Create Date: 2023-02-07
+//     Create Date: 2025-04-15
 //     Module Name: tb_adder
 //     Description: Test bench for simple behavorial adder
 //
