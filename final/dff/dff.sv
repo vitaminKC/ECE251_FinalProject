@@ -11,8 +11,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 
-`ifndef dff
-`define dff
+`ifndef DFF
+`define DFF
 // DO NOT FORGET TO RENAME MODULE_NAME to match your module_name
 
 module dff(clk, reset, enable, d, q);
