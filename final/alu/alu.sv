@@ -46,8 +46,6 @@ module alu(A, B, S, Z);
             Z = ~A;
         4'b0111: //sll
             Z = A << 1;
-        4'b1000: //slr
-            Z = A >> 1;
         endcase
     end
 
