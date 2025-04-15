@@ -17,7 +17,6 @@
 `timescale 1ns/100ps
 
 `include "../regfile/regfile.sv"
-
 `include "../alu/alu.sv"
 `include "../dff/dff.sv"
 `include "../adder/adder.sv"
