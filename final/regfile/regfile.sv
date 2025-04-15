@@ -15,24 +15,24 @@
 `include "../regfile/register.sv"
 
 module regfile #(
-  parameter n = 32,  // bit width of each register
-  parameter r = 5    // address width (so 2^5 = 32 registers)
+  parameter n = 32,  // bit width
+  parameter r = 5    // address width
 ) (
-  input  logic               clk,
-  input  logic               rst,
-  input  logic [r-1:0]      read_addr1,
-  input  logic [r-1:0]      read_addr2,
-  input  logic [r-1:0]      write_addr,
-  input  logic [n-1:0]      write_data,
-  input  logic              write_en,
-  output logic [n-1:0]      read_data1,
-  output logic [n-1:0]      read_data2
+  input  logic clk,
+  input  logic rst,
+  input  logic [r-1:0] read_addr1,
+  input  logic [r-1:0] read_addr2,
+  input  logic [r-1:0] write_addr,
+  input  logic [n-1:0] write_data,
+  input  logic write_en,
+  output logic [n-1:0] read_data1,
+  output logic [n-1:0] read_data2
 );
 
-  // Internal array of register outputs
+  // Internal outputs
   logic [n-1:0] q_internal [(2**r)-1:0];
 
-  // Generate 32 registers (or 2^r registers)
+  // Generate 32 registers
   genvar i;
   generate
     for (i = 0; i < (2**r); i++) begin : register_instances
