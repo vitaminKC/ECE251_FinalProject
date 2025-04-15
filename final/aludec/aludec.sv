@@ -18,7 +18,7 @@
 
 module aludec(input logic [5:0] funct,
               input logic [1:0] aluop,
-            output logic [3:0] alucontrol);
+            output logic [2:0] alucontrol);
     always_comb
         case(aluop)
             2'b00: alucontrol = 3'b010; // add (for lw/sw/addi)
