@@ -66,12 +66,9 @@ module datapath_tb;
     instr = 32'b0;
     readdata = 32'b0;
 
-    // Apply reset
     #10;
     reset = 0;
 
-    // Test 1: ADD $3 = $1 + $2
-    // Fake instruction: $rd = $rs + $rt
     instr = {6'b000000, 5'd1, 5'd2, 5'd3, 5'd0, 6'b100000}; // R-type ADD: $3 = $1 + $2
     regdst = 1;
     regwrite = 1;
@@ -79,19 +76,16 @@ module datapath_tb;
     alucontrol = 3'b010;  // ADD
     #10;
 
-    // Test 2: SUB $4 = $1 - $2
     instr = {6'b000000, 5'd1, 5'd2, 5'd4, 5'd0, 6'b100010}; // R-type SUB: $4 = $1 - $2
     alucontrol = 3'b110; // SUB
     #10;
 
-    // Test 3: ADDI $5 = $1 + imm
     instr = {6'b001000, 5'd1, 5'd5, 16'd10}; // I-type ADDI
     regdst = 0;
     alusrc = 1;
     alucontrol = 3'b010; // ADD
     #10;
 
-    // Test 4: Load word simulation (simulate memory read data)
     memtoreg = 1;
     readdata = 32'hABCD1234;
     instr = {6'b100011, 5'd1, 5'd6, 16'd0}; // lw $6, 0($1)
@@ -99,9 +93,6 @@ module datapath_tb;
     regwrite = 1;
     alusrc = 1;
     #10;
-
-    // End simulation
-    #20;
     $finish;
   end
 

@@ -21,7 +21,7 @@ module alu(A, B, S, Z);
    //
    parameter n = 32;
    input logic [n-1:0] A, B; 
-   input logic [3:0] S;
+   input logic [2:0] S;
    output logic [n-1:0] Z;
 
    //

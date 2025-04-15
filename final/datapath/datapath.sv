@@ -17,6 +17,7 @@
 `timescale 1ns/100ps
 
 `include "../regfile/regfile.sv"
+`include "../regfile/register.sv"
 `include "../alu/alu.sv"
 `include "../dff/dff.sv"
 `include "../adder/adder.sv"
@@ -26,12 +27,12 @@
 
 module datapath
   #(parameter n = 32)(
-  input  logic        clk, reset,
-  input  logic        memtoreg, pcsrc,
-  input  logic        alusrc, regdst,
-  input  logic        regwrite, jump,
-  input  logic [3:0]  alucontrol,    // alu.sv expects 4-bit S
-  output logic        zero,
+  input  logic clk, reset,
+  input  logic memtoreg, pcsrc,
+  input  logic alusrc, regdst,
+  input  logic regwrite, jump,
+  input  logic [2:0]  alucontrol,    // alu.sv expects 4-bit S
+  output logic zero,
   output logic [(n-1):0] pc,
   input  logic [(n-1):0] instr,
   output logic [(n-1):0] aluout, writedata,
@@ -45,7 +46,7 @@ module datapath
   logic [(n-1):0] result;
 
   // Next PC Logic
-  dff pcreg(clk, reset, 1'b1, pcnext, pc);  // enable always 1
+  register pcreg(clk, reset, 1'b1, pcnext, pc);  // enable always 1
   adder pcadd1(pc, 32'b100, pcplus4);
   sl2 immsh(signimm, signimmsh);
   adder pcadd2(pcplus4, signimmsh, pcbranch);
