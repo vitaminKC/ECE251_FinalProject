@@ -27,26 +27,36 @@
 
 module datapath
   #(parameter n = 32)(
-  input  logic clk, reset,
-  input  logic memtoreg, pcsrc,
-  input  logic alusrc, regdst,
-  input  logic regwrite, jump,
+  input  logic clk, 
+  input logic rst,
+  input  logic memtoreg, 
+  input logic pcsrc,
+  input  logic alusrc, 
+  input logic regdst,
+  input  logic regwrite, 
+  input logic jump,
   input  logic [2:0]  alucontrol,    // alu.sv expects 4-bit S
   output logic zero,
   output logic [(n-1):0] pc,
   input  logic [(n-1):0] instr,
-  output logic [(n-1):0] aluout, writedata,
+  output logic [(n-1):0] aluout, 
+  output logic [(n-1):0] writedata,
   input  logic [(n-1):0] readdata
 );
 
   logic [4:0] writereg;
-  logic [(n-1):0] pcnext, pcnextbr, pcplus4, pcbranch;
-  logic [(n-1):0] signimm, signimmsh;
-  logic [(n-1):0] srca, srcb;
+  logic [(n-1):0] pcnext; 
+  logic [(n-1):0] pcnextbr; 
+  logic [(n-1):0] pcplus4; 
+  logic [(n-1):0] pcbranch;
+  logic [(n-1):0] signimm;
+  logic [(n-1):0] signimmsh;
+  logic [(n-1):0] srca;
+  logic [(n-1):0] srcb;
   logic [(n-1):0] result;
 
   // Next PC Logic
-  register pcreg(clk, reset, 1'b1, pcnext, pc);  // enable always 1
+  register pcreg(clk, rst, 1'b1, pcnext, pc);  // enable always 1
   adder pcadd1(pc, 32'b100, pcplus4);
   sl2 immsh(signimm, signimmsh);
   adder pcadd2(pcplus4, signimmsh, pcbranch);
@@ -54,7 +64,7 @@ module datapath
   mux2 #(n) pcmux(pcnextbr, {pcplus4[31:28], instr[25:0], 2'b00}, jump, pcnext);
 
   // Register File Logic
-  regfile rf(clk, reset, instr[25:21], instr[20:16], writereg, result, regwrite, srca, writedata);
+  regfile rf(clk, rst, instr[25:21], instr[20:16], writereg, result, regwrite, srca, writedata);
   mux2 #(5) wrmux(instr[20:16], instr[15:11], regdst, writereg);
   mux2 #(n) resmux(aluout, readdata, memtoreg, result);
   signext se(instr[15:0], signimm);
