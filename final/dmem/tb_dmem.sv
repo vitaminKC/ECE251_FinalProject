@@ -3,7 +3,7 @@
 // ECE 251 Spring 2025
 // Engineer: Amanda Su and Casey Ye
 // 
-//     Create Date: 2025-04-15
+//     Create Date: 2025-04-17
 //     Module Name: tb_dmem
 //     Description: Test bench for simple behavorial dmem
 //
@@ -20,10 +20,12 @@
 module tb_dmem;
     parameter n = 32; // bit length of registers/memory
     parameter r = 6; // we are only addressing 64=2**6 mem slots in imem
-    logic [(n-1):0] readdata, writedata;
+    logic [(n-1):0] readdata;
+    logic [(n-1):0] writedata;
     logic [(n-1):0] dmem_addr;
     logic write_enable;
-    logic clk, clock_enable;
+    logic clk;
+    logic clock_enable;
 
    initial begin
         $dumpfile("dmem.vcd");
