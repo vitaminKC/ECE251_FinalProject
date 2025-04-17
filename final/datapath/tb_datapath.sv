@@ -19,7 +19,7 @@ module datapath_tb;
 
   parameter n = 32;
 
-  logic clk, reset;
+  logic clk, rst;
   logic memtoreg, pcsrc;
   logic alusrc, regdst;
   logic regwrite, jump;
@@ -34,7 +34,7 @@ module datapath_tb;
 
   // Instantiate datapath
   datapath #(n) dut (
-    .clk(clk), .reset(reset),
+    .clk(clk), .rst(rst),
     .memtoreg(memtoreg), .pcsrc(pcsrc),
     .alusrc(alusrc), .regdst(regdst),
     .regwrite(regwrite), .jump(jump),
@@ -56,13 +56,13 @@ module datapath_tb;
   end
 
   initial begin: display_variables
-      $monitor ("ns=%ot, clk=%b, reset=%b, memtoreg=%b, pcsrc=%b, alusrc=%b, regdst=%b, regwrite=%b, jump=%b, alucontrol=%b, zero=%b, pc=%b, instr=%b, aluout=%b, writedata=%b, readdata=%b", $time, clk, reset, memtoreg, pcsrc, alusrc, regdst, regwrite, jump, alucontrol, zero, pc, instr, aluout, writedata, readdata);
+      $monitor ("ns=%ot, clk=%b, rst=%b, memtoreg=%b, pcsrc=%b, alusrc=%b, regdst=%b, regwrite=%b, jump=%b, alucontrol=%b, zero=%b, pc=%b, instr=%b, aluout=%b, writedata=%b, readdata=%b", $time, clk, rst, memtoreg, pcsrc, alusrc, regdst, regwrite, jump, alucontrol, zero, pc, instr, aluout, writedata, readdata);
   end
 
 
   initial begin
     clk = 0;
-    reset = 1;
+    rst = 1;
     memtoreg = 0;
     pcsrc = 0;
     alusrc = 0;
@@ -74,7 +74,7 @@ module datapath_tb;
     readdata = 32'b0;
 
     #10;
-    reset = 0;
+    rst = 0;
 
     instr = {6'b000000, 5'd1, 5'd2, 5'd3, 5'd0, 6'b100000}; // R-type ADD: $3 = $1 + $2
     regdst = 1;
