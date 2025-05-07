@@ -61,7 +61,8 @@ module tb_regfile;
   initial begin
     write_addr=5'h6;
     write_data=8'hA7;
-
+    #5
+    write_addr=5'h2;
     #15 
     read_addr1 = 5'h6;
     write_data = 8'h23;
