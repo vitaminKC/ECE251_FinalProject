@@ -12,7 +12,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 `ifndef REGFILE
 `define REGFILE
-`include "../regfile/register.sv"
+//`include "../regfile/register.sv"
 
 module regfile #(
   parameter n = 32,  // bit width
@@ -36,12 +36,12 @@ module regfile #(
   genvar i;
   generate
     for (i = 0; i < (2**r); i++) begin : register_instances
-      register #( .n(n) ) reg_inst (
+      dff #( .n(n) ) reg_inst (
         .clk(clk),
-        .rst(rst),
+        .reset(rst),
         .enable(write_en && (write_addr == i)),  // Write only if write_en and matching address
         .d(write_data),
-        .q2(q_internal[i])
+        .q(q_internal[i])
       );
     end
   endgenerate

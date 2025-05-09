@@ -17,7 +17,6 @@
 `timescale 1ns/100ps
 
 `include "../regfile/regfile.sv"
-`include "../regfile/register.sv"
 `include "../alu/alu.sv"
 `include "../dff/dff.sv"
 `include "../adder/adder.sv"
@@ -56,7 +55,7 @@ module datapath
   logic [(n-1):0] result;
 
   // Next PC Logic
-  register pcreg(clk, rst, 1'b1, pcnext, pc);  // enable always 1
+  dff pcreg(clk, rst, 1'b1, pcnext, pc);  // enable always 1
   adder pcadd1(pc, 32'b100, pcplus4);
   sl2 immsh(signimm, signimmsh);
   adder pcadd2(pcplus4, signimmsh, pcbranch);

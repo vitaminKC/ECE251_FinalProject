@@ -15,15 +15,15 @@
 `define DFF
 // DO NOT FORGET TO RENAME MODULE_NAME to match your module_name
 
-module dff(clk, reset, enable, d, q);
+module dff #(parameter n = 32) (clk, reset, enable, d, q) ;
    //
    // ---------------- PORT DEFINITIONS ----------------
    //
    input  clk;
    input reset;
    input enable;
-   input d;
-   output q;
+   input [n-1:0] d;
+   output [n-1:0] q;
 
    logic Q;
 
