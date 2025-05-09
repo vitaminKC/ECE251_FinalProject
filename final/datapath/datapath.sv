@@ -70,7 +70,7 @@ module datapath
 
   // ALU Logic
   mux2 #(n) srcbmux(writedata, signimm, alusrc, srcb);
-  alu #(n) alu(srca, srcb, alucontrol, aluout);
+  alu #(n) alu(clk, srca, srcb, {1'b0, alucontrol}, sign, aluout, HiLo);
 
   assign zero = (aluout == 0);  // zero flag
 
