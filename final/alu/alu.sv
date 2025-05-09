@@ -15,44 +15,54 @@
 `define ALU
 // DO NOT FORGET TO RENAME MODULE_NAME to match your module_name
 
-module alu(A, B, S, Z); 
+module alu(clk, A, B, alucontrol, sign, Z, HiLo); 
    //
    // ---------------- PORT DEFINITIONS ----------------
    //
-   parameter n = 32;
-   input logic [n-1:0] A, B; 
-   input logic [3:0] S;
+   parameter N = 32;
+   input logic clk;
+   input logic [N-1:0] A, B; 
+   input logic [3:0] alucontrol;
    input logic sign;
-   output logic [n-1:0] Z;
+   output logic [N-1:0] Z;
+   output logic HiLo;
+
+
+   logic [2*N-1:0] result;
 
    //
    // ---------------- MODULE DESIGN IMPLEMENTATION ----------------
    //
-
     always @(*) begin
-        case(S)
+        case(alucontrol)
         4'b0000: //and
-            Z = A & B; 
+            Z = A & B;
         4'b0001: //or
             Z = A | B;
         4'b0010: // addition
-            Z = sign ? $signed(a) + $signed(b) : Z = A + B;
+            Z = sign ? $signed(A) + $signed(B) : A + B;
         4'b0011: //subtraction
-            Z = sign ? $signed(a) + $signed(b) : Z = A - B;
+            Z = sign ? $signed(A) - $signed(B) : A - B;
         4'b0100: //multiplication
-            Z = A * B;
+            Z = (HiLo == 0) ? result[N-1:0] : result[2*N-1:N]; 
         4'b0101: //division
-            Z = sign ? $signed(a) + $signed(b) : Z = A / B;
+            Z = sign ? $signed(A) / $signed(B) : A / B;
         4'b0110: //shift left
             Z = A << B;
         4'b0111: //shift right
             Z = A >> B;
         4'b1000: //negation
             Z = ~A;
-        // 4'b100
+        default: Z = {N{1'b0}};
         endcase
     end
 
-endmodule
+   always_ff @(posedge clk) begin
+        if (alucontrol == 4'b0100) begin
+            result <= sign ? $signed(A) * $signed(B) : A * B;
+            HiLo <= ~HiLo;
+        end
+   end
 
+endmodule
 `endif
