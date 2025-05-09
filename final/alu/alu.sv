@@ -21,7 +21,8 @@ module alu(A, B, S, Z);
    //
    parameter n = 32;
    input logic [n-1:0] A, B; 
-   input logic [2:0] S;
+   input logic [3:0] S;
+   input logic sign;
    output logic [n-1:0] Z;
 
    //
@@ -30,16 +31,25 @@ module alu(A, B, S, Z);
 
     always @(*) begin
         case(S)
-        3'b010: // addition
-            Z = A + B;
-        3'b110: //subtraction
-            Z = A - B;
-        3'b000: //and
+        4'b0000: //and
             Z = A & B; 
-        3'b001: //or
+        4'b0001: //or
             Z = A | B;
-        3'b111: //slt
-            Z = (A < B);
+        4'b0010: // addition
+            Z = sign ? $signed(a) + $signed(b) : Z = A + B;
+        4'b0011: //subtraction
+            Z = sign ? $signed(a) + $signed(b) : Z = A - B;
+        4'b0100: //multiplication
+            Z = A * B;
+        4'b0101: //division
+            Z = sign ? $signed(a) + $signed(b) : Z = A / B;
+        4'b0110: //shift left
+            Z = A << B;
+        4'b0111: //shift right
+            Z = A >> B;
+        4'b1000: //negation
+            Z = ~A;
+        // 4'b100
         endcase
     end
 
