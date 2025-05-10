@@ -31,7 +31,7 @@ module tb_alu #(parameter n = 32);
    //
    // ---------------- INSTANTIATE UNIT UNDER TEST (DUT) ----------------
    //
-   alu dut(.A(A), .B(B), .S(S), .Z(Z));
+   alu dut(.A(A), .B(B), .alucontrol(S), .Z(Z));
    
     //
     // ---------------- INITIALIZE TEST BENCH ----------------

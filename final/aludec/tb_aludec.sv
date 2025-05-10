@@ -31,45 +31,53 @@ module tb_aludec;
     );
 
     initial begin
-        //aluop = 00
-        $display("Test Case 1: aluop = 00 (Add)");
-        aluop = 2'b00; funct = 6'b000000; // funct is don't care for this case
-        #10; // Wait for 10 time units
+        // I-type: LW, SW -> ADD
+        aluop = 2'b00; funct = 6'bxxxxxx;
+        #1 $display("I-type ADD (LW/SW)");
 
-        //aluop = 01
-        $display("Test Case 2: aluop = 01 (Sub)");
-        aluop = 2'b01; funct = 6'b000000; // funct is don't care for this case
-        #10;
+        // I-type: BEQ -> SUB
+        aluop = 2'b01; funct = 6'bxxxxxx;
+        #1 $display("I-type SUB (BEQ)");
 
-        //funct = 100000 (Add)
-        $display("Test Case 3: R-type, funct = 100000 (Add)");
-        aluop = 2'b10; funct = 6'b100000; 
-        #10;
+        // R-type: add
+        aluop = 2'b10; funct = 6'b100000;
+        #1 $display("R-type ADD");
 
-        //funct = 100010 (Sub)
-        $display("Test Case 4: R-type, funct = 100010 (Sub)");
-        aluop = 2'b10; funct = 6'b100010; 
-        #10;
+        // R-type: sub
+        aluop = 2'b10; funct = 6'b100010;
+        #1 $display("R-type SUB");
 
-        //funct = 100100 (And)
-        $display("Test Case 5: R-type, funct = 100100 (And)");
-        aluop = 2'b10; funct = 6'b100100; 
-        #10;
+        // R-type: and
+        aluop = 2'b10; funct = 6'b100100;
+        #1 $display("R-type AND");
 
-        //funct = 100101 (Or)
-        $display("Test Case 6: R-type, funct = 100101 (Or)");
-        aluop = 2'b10; funct = 6'b100101; 
-        #10;
+        // R-type: or
+        aluop = 2'b10; funct = 6'b100101;
+        #1 $display("R-type OR");
 
-        //funct = 101010 (Slt)
-        $display("Test Case 7: R-type, funct = 101010 (Slt)");
-        aluop = 2'b10; funct = 6'b101010; 
-        #10;
+        // R-type: multiplication
+        aluop = 2'b10; funct = 6'b011000;
+        #1 $display("R-type MULT");
 
-        //Invalid funct value (default case)
-        $display("Test Case 8: Invalid funct value (Default)");
-        aluop = 2'b10; funct = 6'b111111; // Invalid funct value
-        #10;
+        // R-type: division
+        aluop = 2'b10; funct = 6'b101010;
+        #1 $display("R-type DIV");
+
+        // R-type: shift left
+        aluop = 2'b10; funct = 6'b010010;
+        #1 $display("R-type SLL");
+
+        // R-type: shift right
+        aluop = 2'b10; funct = 6'b010000;
+        #1 $display("R-type SRL");
+
+        // R-type: not
+        aluop = 2'b10; funct = 6'b100111;
+        #1 $display("R-type NOT");
+
+        // Invalid funct
+        aluop = 2'b10; funct = 6'b111111;
+        #1 $display("R-type Invalid Function");
         
         $finish;
     end
